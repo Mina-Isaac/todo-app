@@ -36,7 +36,7 @@ export const editTodoFlow: Epic<Action, Action, AppState, Services> = (
     switchMap(actionAndState => {
       return from(editTodo(actionAndState[0].payload.new)).pipe(
         map(() => todoActions.editTodoAsync.success(actionAndState[0].payload.new)),
-        catchError((err: string) => {
+        catchError((err: Error) => {
           const ind = actionAndState[0].payload.ind
           const old = actionAndState[0].payload.old;
           return of(todoActions.editTodoAsync.failure({ ind, old, err }));

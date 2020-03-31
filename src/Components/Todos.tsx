@@ -5,6 +5,15 @@ import { loadTodosAsync, editTodoAsync } from "../Store/Todos/todos.actions";
 import ReactPaginate from "react-paginate";
 import * as Shared from "./SharedComponents";
 import { setTodoOffset } from "../Store/Pagination/pagination.actions";
+import styled from "styled-components";
+
+const Li = styled.li<{ completed: boolean }>`
+  font-size: 16;
+  margin: 1.5% 0;
+  font-weight: bold;
+  background-color: ${({ completed }) =>
+    completed ? "rgba(0, 128, 0, 0.3)" : "rgba(255, 0, 0, 0.3)"};
+`;
 
 const Todos: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,27 +37,28 @@ const Todos: React.FC = () => {
 
   const todoList = useMemo(
     () =>
-      todos.map((old, i) => (
-        <li
+      todos.map((item, i) => (
+        <Li
+          completed={item.completed}
           key={i}
           onClick={() => {
             dispatch(
               editTodoAsync.request({
-                old,
+                old: item,
                 ind: i + offset,
-                new: { ...old, completed: !old.completed }
+                new: { ...item, completed: !item.completed }
               })
             );
           }}
         >
           <span
             style={{
-              textDecorationLine: old.completed ? "line-through" : undefined
+              textDecorationLine: item.completed ? "line-through" : undefined
             }}
           >
-            {old.title}
+            {item.title}
           </span>
-        </li>
+        </Li>
       )),
     [todos, dispatch, offset]
   );

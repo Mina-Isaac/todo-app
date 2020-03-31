@@ -44,7 +44,7 @@ function App(props:any) {
     location: { pathname }
   } = useHistory();
   function handleClick(route: string) {
-    return () => push(`/${route}`);
+    return () => push(`/todo-app/${route}`);
   }
 
   return (
@@ -52,7 +52,7 @@ function App(props:any) {
       <Container>
         <NavContainer>
           <Button
-            active={pathname === "/"}
+            active={pathname === "/todo-app/" || pathname === "/todo-app"}
             width="10"
             onClick={handleClick("")}
           >
@@ -60,14 +60,14 @@ function App(props:any) {
           </Button>
           <SubWrapper>
             <Button
-              active={pathname === "/todos"}
+              active={pathname === "/todo-app/todos"}
               width="30%"
               onClick={handleClick("todos")}
             >
               Todos
             </Button>
             <Button
-              active={pathname === "/posts"}
+              active={pathname === "/todo-app/posts"}
               width="30%"
               onClick={handleClick("posts")}
             >
@@ -77,9 +77,9 @@ function App(props:any) {
         </NavContainer>
 
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/todos" exact component={Todos} />
-          <Route path="/posts" exact component={Posts} />
+          <Route path="/todo-app/" exact component={Home} />
+          <Route path="/todo-app/todos" exact component={Todos} />
+          <Route path="/todo-app/posts" exact component={Posts} />
         </Switch>
       </Container>
     </>

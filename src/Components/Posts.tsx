@@ -30,7 +30,7 @@ const offset = useSelector((state: AppState)=>state.pagination.postOffset)
     () =>
       posts.map((item, i) => {
         const body =
-          item.body.length >= 139 ? item.body.slice(0, 136) + "..." : item.body;
+          item.body.length >= 133 ? item.body.slice(0, 130) + "..." : item.body;
         return (
           <li key={i}>
             <h4 style={{ margin: 0, padding: 0 }}>{item.title}</h4>

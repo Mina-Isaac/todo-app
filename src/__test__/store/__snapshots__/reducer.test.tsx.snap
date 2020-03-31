@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reducer test initial state should match a snapshot 1`] = `
+Object {
+  "pagination": Object {
+    "postOffset": 0,
+    "todoOffset": 0,
+  },
+  "posts": Object {
+    "data": Array [],
+    "isLoadingPosts": false,
+  },
+  "todos": Object {
+    "data": Array [],
+    "isLoadingTodos": false,
+  },
+}
+`;

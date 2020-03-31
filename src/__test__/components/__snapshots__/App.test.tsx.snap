@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Weather app should render without issues renders correctly 1`] = `
+<div
+  className="sc-fzozJi ciPANB"
+>
+  <div
+    className="sc-fzpans kYBUAL"
+  >
+    <button
+      className="sc-AxhCb bTNGnc"
+      onClick={[Function]}
+      width="10"
+    >
+      Home
+    </button>
+    <div
+      className="sc-fzoLsD fCvySv"
+    >
+      <button
+        className="sc-AxhCb lplitL"
+        onClick={[Function]}
+        width="30%"
+      >
+        Todos
+      </button>
+      <button
+        className="sc-AxhCb lplitL"
+        onClick={[Function]}
+        width="30%"
+      >
+        Posts
+      </button>
+    </div>
+  </div>
+</div>
+`;
