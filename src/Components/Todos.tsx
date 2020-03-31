@@ -72,10 +72,10 @@ const Todos: React.FC = () => {
         loading={loading}
       ></Shared.ListRendrer>
       <ReactPaginate
-        previousLabel="← Previous"
-        nextLabel="Next →"
+        previousLabel="Previous"
+        nextLabel="Next"
         breakLabel={<span className="gap">...</span>}
-        breakClassName="break-me"
+        breakClassName="page-button"
         pageCount={pageCount}
         forcePage={offset / perPage}
         marginPagesDisplayed={0}
@@ -83,8 +83,8 @@ const Todos: React.FC = () => {
         onPageChange={handlePageClick}
         containerClassName="pagination"
         pageClassName="page-button"
-        previousLinkClassName="previous_page"
-        nextLinkClassName="next_page"
+        previousLinkClassName="page-nav"
+        nextLinkClassName="page-nav"
         disabledClassName="disabled"
         activeClassName="active"
       />

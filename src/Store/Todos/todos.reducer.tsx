@@ -41,7 +41,6 @@ const data = (data: Todo[] = [], action: Action): Todo[] => {
     }
 
     case getType(actions.editTodoAsync.success): {
-      console.log("success is fired");
       return data;
     }
 

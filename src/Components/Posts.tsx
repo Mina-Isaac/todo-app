@@ -51,10 +51,10 @@ const offset = useSelector((state: AppState)=>state.pagination.postOffset)
         ></Shared.ListRendrer>
 
       <ReactPaginate
-        previousLabel={"← Previous"}
-        nextLabel="Next →"
+        previousLabel={"Previous"}
+        nextLabel="Next"
         breakLabel={<span className="gap">...</span>}
-        breakClassName={"break-me"}
+        breakClassName={"page-button"}
         pageCount={pageCount}
         forcePage = {offset/ perPage}
         marginPagesDisplayed={0}
@@ -62,8 +62,8 @@ const offset = useSelector((state: AppState)=>state.pagination.postOffset)
         onPageChange={handlePageClick}
         containerClassName="pagination"
         pageClassName="page-button"
-        previousLinkClassName="previous_page"
-        nextLinkClassName="next_page"
+        previousLinkClassName="page-nav"
+        nextLinkClassName="page-nav"
         disabledClassName="disabled"
         activeClassName="active"
       />

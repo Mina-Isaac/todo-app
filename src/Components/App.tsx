@@ -37,8 +37,7 @@ const NavContainer = styled.div`
   margin-bottom: auto;
 `;
 
-function App(props:any) {
-  console.log(props)
+function App() {
   const {
     push,
     location: { pathname }
