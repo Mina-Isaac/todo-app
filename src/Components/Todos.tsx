@@ -11,26 +11,28 @@ const Li = styled.li<{ completed: boolean }>`
   font-size: 16;
   margin: 1.5% 0;
   font-weight: bold;
+  width: fit-content;
+  cursor: pointer;
   background-color: ${({ completed }) =>
     completed ? "rgba(0, 128, 0, 0.3)" : "rgba(255, 0, 0, 0.3)"};
 `;
 
 const Todos: React.FC = () => {
   const dispatch = useDispatch();
+  const loadingTodos = useSelector((state: AppState)=>state.loadingState.todoData)
 
   useEffect(() => {
-    dispatch(loadTodosAsync.request());
+    if (loadingTodos === 'unchanged') dispatch(loadTodosAsync.request());
   }, []);
   const numberOfTodos = useSelector(
-    (state: AppState) => state.todos.data.length
+    (state: AppState) => state.todos.length
   );
   const perPage = 10;
   const pageCount = Math.ceil(numberOfTodos / perPage);
   const offset = useSelector((state: AppState) => state.pagination.todoOffset);
   const todos = useSelector((state: AppState) =>
-    state.todos.data.slice(offset, offset + perPage)
+    state.todos.slice(offset, offset + perPage)
   );
-  const loading = useSelector((state: AppState) => state.todos.isLoadingTodos);
   const handlePageClick = function({ selected }: { selected: number }) {
     dispatch(setTodoOffset(selected * perPage));
   };
@@ -69,7 +71,7 @@ const Todos: React.FC = () => {
       <Shared.HrFlex />
       <Shared.ListRendrer
         data={todoList}
-        loading={loading}
+        loading={loadingTodos === 'requested'}
       ></Shared.ListRendrer>
       <ReactPaginate
         previousLabel="Previous"

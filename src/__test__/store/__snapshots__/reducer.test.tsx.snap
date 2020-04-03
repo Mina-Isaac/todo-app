@@ -2,17 +2,16 @@
 
 exports[`Reducer test initial state should match a snapshot 1`] = `
 Object {
+  "loadingState": Object {
+    "postAdd": "unchanged",
+    "postData": "unchanged",
+    "todoData": "unchanged",
+  },
   "pagination": Object {
     "postOffset": 0,
     "todoOffset": 0,
   },
-  "posts": Object {
-    "data": Array [],
-    "isLoadingPosts": false,
-  },
-  "todos": Object {
-    "data": Array [],
-    "isLoadingTodos": false,
-  },
+  "posts": Array [],
+  "todos": Array [],
 }
 `;

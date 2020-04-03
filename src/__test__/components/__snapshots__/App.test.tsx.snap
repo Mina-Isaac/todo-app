@@ -8,9 +8,8 @@ exports[`Weather app should render without issues renders correctly 1`] = `
     className="sc-fzpans kYBUAL"
   >
     <button
-      className="sc-AxhCb bTNGnc"
+      className="sc-AxhCb eizdQs"
       onClick={[Function]}
-      width="10"
     >
       Home
     </button>
@@ -18,16 +17,14 @@ exports[`Weather app should render without issues renders correctly 1`] = `
       className="sc-fzoLsD fCvySv"
     >
       <button
-        className="sc-AxhCb lplitL"
+        className="sc-AxhCb eizdQs"
         onClick={[Function]}
-        width="30%"
       >
         Todos
       </button>
       <button
-        className="sc-AxhCb lplitL"
+        className="sc-AxhCb eizdQs"
         onClick={[Function]}
-        width="30%"
       >
         Posts
       </button>

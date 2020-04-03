@@ -30,7 +30,7 @@ const Button = styled.button<{ width?: number | string; active?: boolean }>`
   background-color: ${({active})=>active?'green': 'white'};
   border: solid 2px green;
   color: ${({active})=>active?'white': 'green'};
-  padding: 1% 2%;
+  padding: 0.6rem 0.8rem;
   text-align: center;
   text-decoration: none;
   display: inline-block;

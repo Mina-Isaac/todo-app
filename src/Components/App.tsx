@@ -52,7 +52,6 @@ function App() {
         <NavContainer>
           <Button
             active={pathname === "/todo-app/" || pathname === "/todo-app"}
-            width="10"
             onClick={handleClick("")}
           >
             Home
@@ -60,14 +59,12 @@ function App() {
           <SubWrapper>
             <Button
               active={pathname === "/todo-app/todos"}
-              width="30%"
               onClick={handleClick("todos")}
             >
               Todos
             </Button>
             <Button
               active={pathname === "/todo-app/posts"}
-              width="30%"
               onClick={handleClick("posts")}
             >
               Posts

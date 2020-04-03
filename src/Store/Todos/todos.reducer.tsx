@@ -1,30 +1,13 @@
 import { ActionType, getType } from "typesafe-actions";
 import * as actions from "./todos.actions";
-import { combineReducers } from "redux";
 import { Todo } from "../../constatnts";
 
 export type Action = ActionType<typeof actions>;
 type LoadSuccess = ActionType<typeof actions.loadTodosAsync.success>;
 type EditRequest = ActionType<typeof actions.editTodoAsync.request>;
-type EditSuccess = ActionType<typeof actions.editTodoAsync.success>;
 type EditFailure = ActionType<typeof actions.editTodoAsync.failure>;
 
-const isLoadingTodos = (
-  isLoading: boolean = false,
-  action: Action
-): boolean => {
-  switch (action.type) {
-    case getType(actions.loadTodosAsync.request):
-      return true;
-    case getType(actions.loadTodosAsync.success):
-      return false;
-    case getType(actions.loadTodosAsync.failure):
-      return false;
-    default:
-      return false;
-  }
-};
-const data = (data: Todo[] = [], action: Action): Todo[] => {
+const todoReducer = (data: Todo[] = [], action: Action): Todo[] => {
   switch (action.type) {
     case getType(actions.loadTodosAsync.success):
       return (action as LoadSuccess).payload;
@@ -55,7 +38,5 @@ const data = (data: Todo[] = [], action: Action): Todo[] => {
       return data;
   }
 };
-const todoReducer = combineReducers({ isLoadingTodos, data });
 export type PostsState = ReturnType<typeof todoReducer>;
-
 export default todoReducer;

@@ -8,20 +8,20 @@ import {setPostOffset} from '../Store/Pagination/pagination.actions'
 
 const Posts: React.FC = () => {
   const dispatch = useDispatch();
-
+  const loadingPosts = useSelector((state: AppState)=>state.loadingState.postData)
   useEffect(() => {
-    dispatch(loadPostsAsync.request());
+    if (loadingPosts === 'unchanged') dispatch(loadPostsAsync.request())
+    ;
   }, []);
   const numberOfposts = useSelector(
-    (state: AppState) => state.posts.data.length
+    (state: AppState) => state.posts.length
   );
   const perPage = 10;
   const pageCount = Math.ceil(numberOfposts / perPage);
 const offset = useSelector((state: AppState)=>state.pagination.postOffset)
   const posts = useSelector((state: AppState) =>
-    state.posts.data.slice(offset, offset + perPage)
+    state.posts.slice(offset, offset + perPage)
   );
-  const loading = useSelector((state: AppState) => state.posts.isLoadingPosts);
   const handlePageClick = function({ selected }: { selected: number }) {
     dispatch(setPostOffset(selected * perPage));
   };
@@ -47,7 +47,7 @@ const offset = useSelector((state: AppState)=>state.pagination.postOffset)
       <Shared.HrFlex />
         <Shared.ListRendrer
           data={postList}
-          loading={loading}
+          loading={loadingPosts === 'requested'}
         ></Shared.ListRendrer>
 
       <ReactPaginate

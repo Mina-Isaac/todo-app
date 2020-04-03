@@ -2,10 +2,9 @@ import reducer from "../../Store/rootReducer";
 import {AppState} from '../../Store/store'
 import * as todoActions from "../../Store/Todos/todos.actions";
 import * as postActions from '../../Store/Posts/posts.actions';
-import * as paginationActions from '../../Store/Pagination/pagination.actions'
-import { Todo, Post } from "../../constatnts";
 import sampleTodos from '../fixtures/sampleTodo'
 import samplePosts from '../fixtures/samplePosts'
+import {loadingFlag} from '../../Store/loading.reducer'
 
 
 
@@ -18,29 +17,29 @@ describe("Reducer test", () => {
     expect(initialState).toMatchSnapshot();
   });
 
-  it("should put retrieved todos data in the store and set loading flag to false", () => {
+  it("should put retrieved todos data in the store and set loading flag to failed", () => {
     const initialState = getInitialState();
     const state = reducer(
       initialState,
       todoActions.loadTodosAsync.success(sampleTodos)
     );
-    expect(state.todos.data).toStrictEqual(sampleTodos);
-    expect(state.todos.isLoadingTodos).toEqual(false);
+    expect(state.todos).toStrictEqual(sampleTodos);
+    expect(state.loadingState.todoData).toEqual(loadingFlag.succeded);
   });
 
-  it("should put retrieved posts data in the store and set loading flag to false", () => {
+  it("should put retrieved posts data in the store and set loading flag to failed", () => {
     const initialState = getInitialState();
     const state = reducer(
       initialState,
       postActions.loadPostsAsync.success(samplePosts)
     );
-    expect(state.posts.data).toStrictEqual(samplePosts);
-    expect(state.posts.isLoadingPosts).toEqual(false);
+    expect(state.posts).toStrictEqual(samplePosts);
+    expect(state.loadingState.postData).toEqual(loadingFlag.succeded);
   });
-  it("should set data to [] and set loading flag to false with when an error occures", () => {
+  it("should set data to [] and set loading flag to false when an error occures", () => {
     const initialState = getInitialState();
-    initialState.posts.isLoadingPosts = true;
-    initialState.todos.isLoadingTodos = true;
+    initialState.loadingState.postData = loadingFlag.requested;
+    initialState.loadingState.todoData = loadingFlag.requested;
     const stateWithPostData = reducer(
       initialState,
       postActions.loadPostsAsync.failure(new Error("some error occurred"))
@@ -49,9 +48,9 @@ describe("Reducer test", () => {
       initialState,
       todoActions.loadTodosAsync.failure(new Error("some error occurred"))
     );
-    expect(stateWithPostData.posts.data).toHaveLength(0);
-    expect(stateWithPostData.posts.isLoadingPosts).toBeFalsy();
-    expect(stateWithTodoData.todos.data).toHaveLength(0);
-    expect(stateWithPostData.todos.isLoadingTodos).toBeFalsy();
+    expect(stateWithPostData.posts).toHaveLength(0);
+    expect(stateWithPostData.loadingState.postData).toEqual(loadingFlag.failed);
+    expect(stateWithTodoData.todos).toHaveLength(0);
+    expect(stateWithTodoData.loadingState.todoData).toEqual(loadingFlag.failed);
   });
 });

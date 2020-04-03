@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   height: 48vh;
   border-radius: 6px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  margin: 1% auto;
+  margin: 0.2% auto;
   overflow: auto;
 `;
 
@@ -28,10 +28,10 @@ const Form = styled.div`
   justify-content: space-evenly;
   background: #fff;
   width: 40vw;
-  height: 30vh;
+  height: 35vh;
   border-radius: 6px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  margin: 1% auto 1% auto;
+  margin: 0.3% auto;
   overflow: hidden;
 `;
 
@@ -53,8 +53,12 @@ const TextArea = styled.textarea`
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
+  const loadingPosts = useSelector((state: AppState)=>state.loadingState.postData)
+  const addingPost = useSelector((state: AppState)=>state.loadingState.postAdd)
+  const latetsPosts = useSelector((state: AppState) => state.posts.slice(-3));
   useEffect(() => {
-    dispatch(loadPostsAsync.request());
+    if (loadingPosts === 'unchanged') dispatch(loadPostsAsync.request())
+    ;
   }, []);
   const [postTitle, setPostTitle] = useState("");
   const [postBody, setPostBody] = useState("");
@@ -77,11 +81,7 @@ const Home: React.FC = () => {
     setPostTitle("");
     setPostBody("");
   };
-  let loading: boolean = true;
-  const latetsPosts = useSelector((state: AppState) => {
-    loading = state.posts.isLoadingPosts;
-    return state.posts.data.slice(-3);
-  });
+
   const listItems = useMemo(
     () =>
       latetsPosts.map((item, i) => {
@@ -104,7 +104,7 @@ const Home: React.FC = () => {
         <Shared.HrFlex />
         <Shared.ListRendrer
           data={listItems}
-          loading={loading}
+          loading={loadingPosts === 'requested' || loadingPosts === 'unchanged'}
         ></Shared.ListRendrer>
       </Wrapper>
       <Form>
@@ -112,6 +112,7 @@ const Home: React.FC = () => {
         <Input
           placeholder="Please enter a title for your post"
           required
+          disabled = {loadingPosts === 'requested' || addingPost === 'requested'}
           type="text"
           onChange={handleChange("t")}
           value={postTitle}
@@ -120,6 +121,7 @@ const Home: React.FC = () => {
         <TextArea
           placeholder="Please enter your post here"
           required
+          disabled = {loadingPosts === 'requested' || addingPost === 'requested'}
           rows={4}
           onChange={handleChange("b")}
           value={postBody}
