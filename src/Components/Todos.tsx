@@ -19,21 +19,21 @@ const Li = styled.li<{ completed: boolean }>`
 
 const Todos: React.FC = () => {
   const dispatch = useDispatch();
-  const loadingTodos = useSelector((state: AppState)=>state.loadingState.todoData)
+  const loadingTodos = useSelector(
+    (state: AppState) => state.loadingState.todoData
+  );
 
   useEffect(() => {
-    if (loadingTodos === 'unchanged') dispatch(loadTodosAsync.request());
+    if (loadingTodos === "unchanged") dispatch(loadTodosAsync.request());
   }, []);
-  const numberOfTodos = useSelector(
-    (state: AppState) => state.todos.length
-  );
+  const numberOfTodos = useSelector((state: AppState) => state.todos.length);
   const perPage = 10;
   const pageCount = Math.ceil(numberOfTodos / perPage);
   const offset = useSelector((state: AppState) => state.pagination.todoOffset);
   const todos = useSelector((state: AppState) =>
     state.todos.slice(offset, offset + perPage)
   );
-  const handlePageClick = function({ selected }: { selected: number }) {
+  const handlePageClick = function ({ selected }: { selected: number }) {
     dispatch(setTodoOffset(selected * perPage));
   };
 
@@ -48,14 +48,14 @@ const Todos: React.FC = () => {
               editTodoAsync.request({
                 old: item,
                 ind: i + offset,
-                new: { ...item, completed: !item.completed }
+                new: { ...item, completed: !item.completed },
               })
             );
           }}
         >
           <span
             style={{
-              textDecorationLine: item.completed ? "line-through" : undefined
+              textDecorationLine: item.completed ? "line-through" : undefined,
             }}
           >
             {item.title}
@@ -71,25 +71,27 @@ const Todos: React.FC = () => {
       <Shared.HrFlex />
       <Shared.ListRendrer
         data={todoList}
-        loading={loadingTodos === 'requested'}
+        loading={loadingTodos === "requested"}
       ></Shared.ListRendrer>
-      <ReactPaginate
-        previousLabel="Previous"
-        nextLabel="Next"
-        breakLabel={<span className="gap">...</span>}
-        breakClassName="page-button"
-        pageCount={pageCount}
-        forcePage={offset / perPage}
-        marginPagesDisplayed={0}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageClick}
-        containerClassName="pagination"
-        pageClassName="page-button"
-        previousLinkClassName="page-nav"
-        nextLinkClassName="page-nav"
-        disabledClassName="disabled"
-        activeClassName="active"
-      />
+      {pageCount > 1 && (
+        <ReactPaginate
+          previousLabel="Previous"
+          nextLabel="Next"
+          breakLabel={<span className="gap">...</span>}
+          breakClassName="page-button"
+          pageCount={pageCount}
+          forcePage={offset / perPage}
+          marginPagesDisplayed={0}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageClick}
+          containerClassName="pagination"
+          pageClassName="page-button"
+          previousLinkClassName="page-nav"
+          nextLinkClassName="page-nav"
+          disabledClassName="disabled"
+          activeClassName="active"
+        />
+      )}
     </Shared.Wrapper>
   );
 };

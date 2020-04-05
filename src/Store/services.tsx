@@ -7,22 +7,20 @@ let postsCache: Post[] | null = null,
 
 const appServices = {
   getAllPosts(): Promise<Post[]> {
-    if (postsCache)
-      return new Promise((resolve) => resolve(postsCache!));
-    return axios.get(POSTS_API_URL).then(response => {
+    if (postsCache) return new Promise((resolve) => resolve(postsCache!));
+    return axios.get(POSTS_API_URL).then((response) => {
       postsCache = response.data;
       return response.data;
     });
   },
 
   addPost(post: Post): Promise<Post> {
-    return axios.post(POSTS_API_URL, post).then(response => response.data);
+    return axios.post(POSTS_API_URL, post).then((response) => response.data);
   },
 
   getAllTodos(): Promise<Todo[]> {
-    if (todosCache)
-      return new Promise((resolve) => resolve(todosCache!));
-    return axios.get(TODOS_API_URL).then(response => {
+    if (todosCache) return new Promise((resolve) => resolve(todosCache!));
+    return axios.get(TODOS_API_URL).then((response) => {
       todosCache = response.data;
       return response.data;
     });
@@ -30,8 +28,8 @@ const appServices = {
 
   editTodo(item: Todo): Promise<Todo> {
     const path = `${TODOS_API_URL}/${item.id}`;
-    return axios.patch(path, item).then(response => response.data);
-  }
+    return axios.patch(path, item).then((response) => response.data);
+  },
 };
 
 export type Services = typeof appServices;

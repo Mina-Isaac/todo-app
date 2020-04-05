@@ -8,14 +8,10 @@ const loadPostsAsync = createAsyncAction(
   ActionTypes.FETCH_POSTS_FAILURE
 )<undefined, Post[], Error>();
 
-
 const addPostAsync = createAsyncAction(
   ActionTypes.ADD_POST,
   ActionTypes.ADD_POST_SUCCESS,
   ActionTypes.ADD_POST_FAILURE
 )<Post, Post, Error>();
 
-export {
-  loadPostsAsync,
-  addPostAsync,
-};
+export { loadPostsAsync, addPostAsync };

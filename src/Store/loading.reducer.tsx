@@ -5,16 +5,16 @@ export enum loadingFlag {
   unchanged = "unchanged",
   requested = "requested",
   succeded = "succeded",
-  failed = "failed"
+  failed = "failed",
 }
 type Action = ActionType<typeof loadTodosAsync | typeof postActions>;
 const initialState = {
   todoData: loadingFlag.unchanged,
   postData: loadingFlag.unchanged,
-  postAdd: loadingFlag.unchanged
+  postAdd: loadingFlag.unchanged,
 };
 
-export default function(
+export default function (
   state = initialState,
   action: Action
 ): typeof initialState {

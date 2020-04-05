@@ -12,9 +12,9 @@ export type AppState = StateType<typeof rootReducer>;
 const epicMiddleware = createEpicMiddleware<Action, Action, AppState, Services>({
   dependencies: appServices
 });
-const middleware: Middleware = epicMiddleware;
+//const middleware: Middleware = epicMiddleware;
 
-const enhancer = compose(applyMiddleware(middleware));
+const enhancer = compose(applyMiddleware(epicMiddleware));
 const store = createStore(rootReducer, enhancer);
 epicMiddleware.run(rootEpic);
 

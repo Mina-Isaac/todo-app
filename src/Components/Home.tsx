@@ -17,6 +17,10 @@ const Wrapper = styled.div`
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   margin: 0.2% auto;
   overflow: auto;
+  @media (max-width: 420px) {
+    width: 90vw;
+    margin: auto;
+  }
 `;
 
 const Form = styled.div`
@@ -33,6 +37,10 @@ const Form = styled.div`
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   margin: 0.3% auto;
   overflow: hidden;
+  @media (max-width: 420px) {
+    width: 90vw;
+    margin: auto;
+  }
 `;
 
 const Input = styled.input`
@@ -53,16 +61,20 @@ const TextArea = styled.textarea`
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const loadingPosts = useSelector((state: AppState)=>state.loadingState.postData)
-  const addingPost = useSelector((state: AppState)=>state.loadingState.postAdd)
+  const loadingPosts = useSelector(
+    (state: AppState) => state.loadingState.postData
+  );
+  const addingPost = useSelector(
+    (state: AppState) => state.loadingState.postAdd
+  );
   const latetsPosts = useSelector((state: AppState) => state.posts.slice(-3));
   useEffect(() => {
-    if (loadingPosts === 'unchanged') dispatch(loadPostsAsync.request())
-    ;
+    if (loadingPosts === "unchanged") dispatch(loadPostsAsync.request());
+    return;
   }, []);
   const [postTitle, setPostTitle] = useState("");
   const [postBody, setPostBody] = useState("");
-  const handleChange = function(type: "t" | "b") {
+  const handleChange = function (type: "t" | "b") {
     return (
       event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
@@ -70,12 +82,12 @@ const Home: React.FC = () => {
       type === "t" ? setPostTitle(value) : setPostBody(value);
     };
   };
-  const handleSubmit = function(event: React.MouseEvent) {
+  const handleSubmit = function (event: React.MouseEvent) {
     if (postTitle === "" || postBody === "") return;
     const post = {
       userId: 1,
       title: postTitle,
-      body: postBody
+      body: postBody,
     };
     dispatch(addPostAsync.request(post));
     setPostTitle("");
@@ -86,7 +98,7 @@ const Home: React.FC = () => {
     () =>
       latetsPosts.map((item, i) => {
         const body =
-          item.body.length >= 130 ? item.body.slice(0, 127) + "..." : item.body;
+          item.body.length >= 130 ? `${item.body.slice(0, 127)}...` : item.body;
         return (
           <li key={i}>
             <h4 style={{ margin: 0, padding: 0 }}>{item.title}</h4>
@@ -104,7 +116,7 @@ const Home: React.FC = () => {
         <Shared.HrFlex />
         <Shared.ListRendrer
           data={listItems}
-          loading={loadingPosts === 'requested' || loadingPosts === 'unchanged'}
+          loading={loadingPosts === "requested" || loadingPosts === "unchanged"}
         ></Shared.ListRendrer>
       </Wrapper>
       <Form>
@@ -112,7 +124,7 @@ const Home: React.FC = () => {
         <Input
           placeholder="Please enter a title for your post"
           required
-          disabled = {loadingPosts === 'requested' || addingPost === 'requested'}
+          disabled={loadingPosts === "requested" || addingPost === "requested"}
           type="text"
           onChange={handleChange("t")}
           value={postTitle}
@@ -121,18 +133,14 @@ const Home: React.FC = () => {
         <TextArea
           placeholder="Please enter your post here"
           required
-          disabled = {loadingPosts === 'requested' || addingPost === 'requested'}
+          disabled={loadingPosts === "requested" || addingPost === "requested"}
           rows={4}
           onChange={handleChange("b")}
           value={postBody}
         />
         <br />
-        <Shared.Button
-          width = "30%"
-          onClick={handleSubmit}
-        >
-          {" "}
-          Add post{" "}
+        <Shared.Button width="30%" onClick={handleSubmit}>
+          Add post
         </Shared.Button>
       </Form>
     </>
